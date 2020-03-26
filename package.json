@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": ""
+    "dev": "nodemon src/index.js"
   },
   "author": "Oleksandr Kolomiichuk <alexkolom27@gmail.com>",
   "license": "ISC",
