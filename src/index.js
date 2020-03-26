@@ -38,6 +38,10 @@ io.on('connection', (socket) => {
     socket.on('sendMessage', (messageText, callback) => {
         const user = getUser(socket.id)
 
+        if (!user) {
+            return callback('disconnected')
+        }
+
         const filter = new Filter()
 
         if (filter.isProfane(messageText)) {
@@ -50,6 +54,10 @@ io.on('connection', (socket) => {
 
     socket.on('sendLocation', ({ latitude, longitude }, callback) => {
         const user = getUser(socket.id)
+
+        if (!user) {
+            return callback('disconnected')
+        }
 
         io.to(user.room).emit('locationMessage', generateLocationMessage(user.username, `https://google.com/maps?q=${latitude},${longitude}`), user.id)
         callback()

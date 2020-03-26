@@ -114,6 +114,13 @@ document.querySelector('#message-form').addEventListener('submit', (e) => {
             $messageFormInput.value = ''
 
             if (error) {
+                if (error === 'disconnected') {
+                    const disconnectedUser = () => {
+                        alert('Please connect to the room')
+                        location.href = '/'
+                    }
+                    return disconnectedUser()
+                }
                 return insertSystemMessageToHTML(error)
             }
             //console.log('Message delivered!')
@@ -133,7 +140,14 @@ $sendLocationButton.addEventListener('click', () => {
         socket.emit('sendLocation', {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
-        }, () => {
+        }, (error) => {
+            if (error === 'disconnected') {
+                const disconnectedUser = () => {
+                    alert('Please connect to the room')
+                    location.href = '/'
+                }
+                return disconnectedUser()
+            }
             $sendLocationButton.removeAttribute('disabled')
             //console.log('Location shared!')
         })
